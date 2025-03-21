@@ -1,0 +1,139 @@
+Ques 1:
+import java.util.*;
+
+class Employee {
+    private String name;
+    private int age;
+    private double salary;
+
+    // Constructor
+    public Employee(String name, int age, double salary) {
+        this.name = name;
+        this.age = age;
+        this.salary = salary;
+    }
+
+    // Getters and Setters
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{name='" + name + "', age=" + age + ", salary=" + salary + '}';
+    }
+}
+
+public class EmployeeSort {
+    public static void main(String[] args) {
+        // Creating a list of Employee objects
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee("John", 25, 50000));
+        employees.add(new Employee("Alice", 30, 60000));
+        employees.add(new Employee("Bob", 22, 45000));
+        employees.add(new Employee("Charlie", 35, 70000));
+
+        // Sorting by Name
+        System.out.println("Sorting by Name:");
+        employees.sort((e1, e2) -> e1.getName().compareTo(e2.getName()));
+        employees.forEach(System.out::println);
+
+        // Sorting by Age
+        System.out.println("\nSorting by Age:");
+        employees.sort((e1, e2) -> Integer.compare(e1.getAge(), e2.getAge()));
+        employees.forEach(System.out::println);
+
+        // Sorting by Salary
+        System.out.println("\nSorting by Salary:");
+        employees.sort((e1, e2) -> Double.compare(e1.getSalary(), e2.getSalary()));
+        employees.forEach(System.out::println);
+    }
+}
+
+Output=
+Sorting by Name:
+Employee{name='Alice', age=30, salary=60000.0}
+Employee{name='Bob', age=22, salary=45000.0}
+Employee{name='Charlie', age=35, salary=70000.0}
+Employee{name='John', age=25, salary=50000.0}
+
+Sorting by Age:
+Employee{name='Bob', age=22, salary=45000.0}
+Employee{name='John', age=25, salary=50000.0}
+Employee{name='Alice', age=30, salary=60000.0}
+Employee{name='Charlie', age=35, salary=70000.0}
+
+Sorting by Salary:
+Employee{name='Bob', age=22, salary=45000.0}
+Employee{name='John', age=25, salary=50000.0}
+Employee{name='Alice', age=30, salary=60000.0}
+Employee{name='Charlie', age=35, salary=70000.0}
+
+
+Ques 2:
+import java.util.*;
+import java.util.stream.Collectors;
+
+class Student {
+    private String name;
+    private double marks;
+
+    // Constructor
+    public Student(String name, double marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public double getMarks() {
+        return marks;
+    }
+
+    @Override
+    public String toString() {
+        return name + " - " + marks;
+    }
+}
+
+public class StudentFilterSort {
+    public static void main(String[] args) {
+        // Creating a list of Student objects
+        List<Student> students = Arrays.asList(
+            new Student("Alice", 80),
+            new Student("Bob", 60),
+            new Student("Charlie", 90),
+            new Student("David", 70),
+            new Student("Eve", 85)
+        );
+
+        // Using Streams to filter students, sort by marks, and display names
+        System.out.println("Students scoring above 75%, sorted by marks:");
+        students.stream()
+                // Filter students with marks greater than 75
+                .filter(student -> student.getMarks() > 75)
+                // Sort by marks in descending order
+                .sorted((s1, s2) -> Double.compare(s2.getMarks(), s1.getMarks()))
+                // Map to get only names
+                .map(Student::getName)
+                // Collect the result and print each name
+                .forEach(System.out::println);
+    }
+}
+
+Output=
+Students scoring above 75%, sorted by marks:
+Charlie - 90.0
+Eve - 85.0
+Alice - 80.0
